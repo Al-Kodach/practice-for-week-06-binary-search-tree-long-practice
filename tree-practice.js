@@ -6,11 +6,69 @@ const { BinarySearchTree, TreeNode } = require('./binary-search-tree.js');
 
 function findMinBST (rootNode) {
   // Your code here
+  
+  // if the tree is empty, return null;
+  if (!rootNode) return null;
+
+  let min = rootNode.val,
+    rigthChild = rootNode.right,
+    leftChild = rootNode.left;
+
+  // loop through the left edge to the leaf node.
+  while(rigthChild || leftChild) {
+    // check on left child value
+    if (leftChild) {
+      if (min > leftChild.val) {
+        min = leftChild.val;
+      }
+    }
+    // check on rigth child value
+    if (rigthChild) {
+      if (min > rigthChild.val) {
+        min = rigthChild.val;
+      }
+    }
+    // continue to the left and right children
+    leftChild = leftChild?.left ?? null;
+    rigthChild = rigthChild?.right ?? null;
+  }
+
+  // after the loop, return minimum.
+  return min;
 }
 
 function findMaxBST (rootNode) {
   // Your code here
-}
+  // if the tree is empty, return null;
+  if (!rootNode) return null;
+
+  let max = rootNode.val,
+    rigthChild = rootNode.right,
+    leftChild = rootNode.left;
+
+
+  // loop through the left edge to the leaf node.
+  while(rigthChild || leftChild) {
+    // check on left child value
+    if (leftChild) {
+      if (max < leftChild.val) {
+        max = leftChild.val;
+      }
+    }
+    // check on rigth child value
+    if (rigthChild) {
+      if (max < rigthChild.val) {
+        max = rigthChild.val;
+      }
+    }
+    // continue with the left and right children
+    leftChild = leftChild?.left ?? null;
+    rigthChild = rigthChild?.right ?? null;
+  }
+
+  // after the loop, return maximum.
+  return max;
+} 
 
 function findMinBT (rootNode) {
   // Your code here
@@ -63,6 +121,33 @@ function deleteNodeBST(rootNode, target) {
   //   Make the parent point to the child
 
 }
+
+let bstRoot, bstRootBig
+
+bstRoot = new TreeNode(4);
+bstRoot.left = new TreeNode(2);
+bstRoot.left.left = new TreeNode(1);
+bstRoot.left.right = new TreeNode(3);
+bstRoot.right = new TreeNode(6);
+bstRoot.right.left = new TreeNode(5);
+bstRoot.right.right = new TreeNode(7);
+
+bstRootBig = new TreeNode(8);
+bstRootBig.left = new TreeNode(3);
+bstRootBig.left.left = new TreeNode(2);
+bstRootBig.left.left.left = new TreeNode(1);
+bstRootBig.left.right = new TreeNode(5);
+bstRootBig.left.right.left = new TreeNode(4);
+bstRootBig.left.right.right = new TreeNode(7);
+bstRootBig.left.right.right.left = new TreeNode(6);
+bstRootBig.right = new TreeNode(10);
+bstRootBig.right.right = new TreeNode(11);
+bstRootBig.right.right.right = new TreeNode(12);
+bstRootBig.right.right.right.right = new TreeNode(15);
+bstRootBig.right.right.right.right.left = new TreeNode(14);
+
+console.log(findMaxBST(bstRoot));
+console.log(findMaxBST(bstRootBig));
 
 module.exports = {
     findMinBST,
